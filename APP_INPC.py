@@ -8,6 +8,35 @@ from openpyxl.styles import PatternFill, Border, Side, Alignment, Font
 from io import BytesIO
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 
+# ---------------- PROTEÇÃO COM SENHA ---------------- #
+def check_password():
+    """Retorna True se a senha estiver correta."""
+
+    def password_entered():
+        if st.session_state["password"] == st.secrets["password"]:
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # não deixar a senha salva
+        else:
+            st.session_state["password_correct"] = False
+
+    # Se a senha já estiver correta
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # Senão, mostra o campo de senha
+    st.text_input(
+        "🔒 Digite a senha para acessar o painel",
+        type="password",
+        on_change=password_entered,
+        key="password"
+    )
+    if "password_correct" in st.session_state and not st.session_state["password_correct"]:
+        st.error("Senha incorreta ❌")
+    return False
+
+# Bloqueia o app até digitar a senha
+if not check_password():
+    st.stop()
 
 # ---------- CONFIGURAÇÕES INICIAIS ----------
 st.set_page_config(page_title="Painel de Correção de Valores", page_icon="💰", layout="wide")
