@@ -12987,17 +12987,15 @@ elif opcao_menu == "💵 Juros":
             wb.save(caminho_arquivo)
             st.info(f"📂 Arquivo salvo em: {caminho_arquivo}")
 
-
-# Botão para download
-with open(caminho_arquivo, "rb") as file:
+# Exportar para Excel e disponibilizar para download
+saida.to_excel("JUROS_SIMPLES.xlsx", index=False)
+with open("JUROS_SIMPLES.xlsx", "rb") as file:
     st.download_button(
         "📥 Baixar resultado em Excel",
         file,
-        file_name=os.path.basename(caminho_arquivo),
+        "JUROS_SIMPLES.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
-
-
 
 
 
