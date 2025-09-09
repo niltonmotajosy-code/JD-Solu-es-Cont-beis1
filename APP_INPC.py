@@ -12988,5 +12988,16 @@ elif opcao_menu == "💵 Juros":
             st.info(f"📂 Arquivo salvo em: {caminho_arquivo}")
 
 
+# Botão para download
+with open(caminho_arquivo, "rb") as file:
+    st.download_button(
+        "📥 Baixar resultado em Excel",
+        file,
+        file_name=os.path.basename(caminho_arquivo),
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+
+
 
 
